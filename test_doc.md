@@ -5,3 +5,5 @@ A new test, to see if .md is supported for any file.
 
 Another test.
 
+Foo Change.
+
