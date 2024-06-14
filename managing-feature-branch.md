@@ -112,7 +112,9 @@ $ git log --graph
 
 ## "Closing" a branch 
 
-After a while, you might want to "archive" the feature branch. git hasn't such a feature, but it can be emulated as follow. **You can use [this script](git-utils/archive-label.sh)** doing the same:
+**Don't delete inactive branches**, archive them as described here. This keeps track of the fact they existed, is visible in the log tree and allows for reopening branches if it becomes necessary in future.
+
+After a while, you might want to "archive" the feature branch. git hasn't such a feature, but it can be emulated as follow. **You can use [this script](git-utils/archive-label.sh)** for doing the same:
 
 ```bash
 # Tag the to-be-archived branch, ie, a tag is attached to its last commit.
