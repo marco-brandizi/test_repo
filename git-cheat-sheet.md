@@ -64,7 +64,7 @@ git remote set-url origin https://github.com/user/repo2.git
 git remote -v # will show you the results
 ```
 
-## Pulling a new branch ==
+## Pulling a new branch
 
 ```bash
 git fetch
