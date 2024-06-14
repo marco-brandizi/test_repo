@@ -112,7 +112,7 @@ $ git log --graph
 
 ## "Closing" a branch 
 
-**Don't delete inactive branches**, archive them as described here. This keeps track of the fact they existed, is visible in the log tree and allows for reopening branches if it becomes necessary in future.
+**Don't delete inactive branches**, archive them as described in the follow. This keeps track of the fact they existed, it's visible in the log tree and allows for reopening branches if it becomes necessary in future.
 
 After a while, you might want to "archive" the feature branch. git hasn't such a feature, but it can be emulated as follow. **You can use [this script](git-utils/archive-label.sh)** for doing the same:
 
