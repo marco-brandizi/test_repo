@@ -116,7 +116,8 @@ After a while, you might want to "archive" the feature branch. git hasn't such a
 
 ```bash
 # Tag the to-be-archived branch, ie, a tag is attached to its last commit.
-# The archive prefix is purely convential, it doesn't have any particular meaning for git or github
+# The 'archive/' prefix is purely convential, it doesn't have any particular
+# meaning for git or github
 $ git tag archive/2024-test-branch 2024-test-branch
 
 # Now you can delete the branch and leave the tag in its place
