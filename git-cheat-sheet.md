@@ -141,7 +141,10 @@ Just do this for removing local branches that were deleted remotely:
 
 ```bash
 git fetch --prune
+# 'git remote' has alternatives
 ```
+
+
 
 
 ## Amending a Commit ==
