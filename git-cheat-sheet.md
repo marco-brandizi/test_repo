@@ -144,9 +144,6 @@ git fetch --prune
 # 'git remote' has alternatives
 ```
 
-
-
-
 ## Amending a Commit ==
 
 ```bash
