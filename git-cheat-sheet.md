@@ -151,3 +151,7 @@ git commit --amend
 ```
 
 and then edit the old message. If the commit is already pushed, do `git push --force [branch]`
+
+If you need to amend an old (before the latest) message, use [this](https://docs.github.com/en/pull-requests/committing-changes-to-your-project/creating-and-editing-commits/changing-a-commit-message). If it's already pushed, do `git push --force` at the end, as they suggest. 
+
+In both cases, you're rewriting the commit history when you push, so be careful and tell the collaborators.
