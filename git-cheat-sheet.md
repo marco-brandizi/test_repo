@@ -22,7 +22,7 @@ git remote update
 git fetch
 ```
 
-## Creating a repo from an existing directory = 
+## Creating a repo from an existing directory
 
 ```bash
 git init
@@ -57,7 +57,7 @@ git merge upstream/master
 Which is more the fine-grained version of `git pull upstream`
 
 
-## Changing the remote pointer == 
+## Changing the remote pointer
 
 ```bash
 git remote set-url origin https://github.com/user/repo2.git
@@ -144,7 +144,7 @@ git fetch --prune
 # 'git remote' has alternatives
 ```
 
-## Amending a Commit ==
+## Amending a Commit
 
 ```bash
 git commit --amend
