@@ -139,7 +139,7 @@ This is different than `-X ours`, cause it doesn't look at all at dev, and takes
 
 ## Merge with "hard theirs"
 
-The option `git -s recursive -Xtheirs` isn't enough, you need the following ([reference](https://www.reddit.com/r/git/comments/bqx85v/how_do_i_overwrite_one_branch_with_another_branch/)
+The option `git -s recursive -Xtheirs` isn't enough, you need the following ([reference](https://www.reddit.com/r/git/comments/bqx85v/how_do_i_overwrite_one_branch_with_another_branch/))
 
 ```bash
 git checkout <branch to reset>
@@ -157,8 +157,7 @@ Now, push, and remember you'll lose the (remote) commits that changed the branch
 
 ## Closing a branch
 
-There isn’t no such thing, but it can be simulated via conversion to tag.
-[Reference](http://stackoverflow.com/questions/10242924/how-to-close-a-branch-without-removing-it-from-history-in-git)
+There is no such thing, but it can be emulated via conversion to tag ([reference](http://stackoverflow.com/questions/10242924/how-to-close-a-branch-without-removing-it-from-history-in-git))
 
 ```bash
 git tag archive/<branchname> <branchname>
