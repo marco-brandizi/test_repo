@@ -1,5 +1,8 @@
 # Some tricks and tips about git
 
+*Note: git/GitHub used to create repositories with 'master' as the default branch, [now they choose 'main'](https://www.theserverside.com/feature/Why-GitHub-renamed-its-master-branch-to-main), in a questionable attempt to adopt a more inclusive terminology. I still haven't had time to update this document, so consider that where I mention 'master', you might need to use 'main' instead, or vice versa.*
+
+
 ## How to develop a new chunk from the main branch
 
 * **Always, always update your clone as first step**. You don't want to make a change on code that is days, weeks, months old!
@@ -14,26 +17,26 @@
 
 ### How to align with your main branch
 
-After I've made a few changes on your local clone, I usually align with the main repo (eg, on github) this way:
+After I've made a few changes on my local clone, I usually align with the main repo (eg, on github) this way:
 
 * If I'm sure the main repo hasn't changed or hasn't changed significantly since my last local update (via pull or alike), I do a git pull.
-* Else, if I know I might have significant differences coming from the main repo, I do a git fetch, and then I compare the local version with the one marked with the branch `origin/*` (eg, `origin/main`). I recommend a visual tool to perform such comparison (eg, Eclipse Egit, SmartGit, Megit). I usually use Egit or Megit, which allows me to compare files one-by-one and to merge remote changes onto local files, or even do manual edits.
-  * Once I'm happy with the alignment changes I've made this way on my local copy (ie, everything builds and passes the tests), I do a merge in 'hard ours' mode (see below) and finally, I commit and push such local changes.
+* Else, if I know I might have significant differences coming from the main repo, I do a git fetch, and then I compare the local version with the one marked with the branch `origin/*` (eg, `origin/main`). I recommend a visual tool to perform such comparison (eg, Eclipse Egit, Megit, SmartGit). I usually use Egit or Megit, which allow me to compare files one-by-one, side-by-side, and to merge remote changes onto local files, or even do manual edits.
+* Once I'm happy with the alignment changes I've made this way on my local copy (ie, everything builds and passes the tests), I do a merge in 'hard ours' mode (see below) and finally, I commit and push such local changes.
 
 ## How I work on feature branches
 
-General note: I usually work with small teams, We usually use a kind of [feature branch-based git workflow](https://nvie.com/posts/a-successful-git-branching-model/), that is, we normally commit/push on the main branch (we push when things are minimally working, see above) and we open feature branches for creating a new feature that will require some time before being ready for merging in the main code. Similarly, we open a branch for anything that is likely to break the main code (including deployments) for several days or longer. See [here](https://medium.com/@patrickporto/4-branching-workflows-for-git-30d0aaee7bf) for a summary about main git workflows.
+General note: I usually work with small teams, We usually use a kind of [feature branch-based git workflow](https://nvie.com/posts/a-successful-git-branching-model/), that is, we normally commit/push on the main branch (we push when things are minimally working, see above), and we open feature branches for creating a new feature that will require some time before being ready for merging in the main code (some of my colleagues prefer pull request for this, even when they self-close them, the flow doesn't change much in this variant). Similarly, we open a branch for anything likely to break the main code (including deployments) for several days or longer. See [here](https://medium.com/@patrickporto/4-branching-workflows-for-git-30d0aaee7bf) for a summary about main git workflows.
 
-For instance, when I create a new feature that I think requires a branch I do:
+For instance, when I create a new feature that I think requires a branch, I do:
 
 * **First I update my local clone** with git pull or fetch+pull (see above)
-* I open a branch, naming it YYYYMMDD-feature-summary or YYYMM-feature-summary (depending on how long time I expect to work on it). The date (in that format) is important to see output from 'git branch' or 'git tag' in chronological order (and to not mess up with: when did I start that?).
+* I open a branch, naming it YYYYMMDD-feature-summary or YYYMM-feature-summary (depending on how long I expect to work on it). The date (in that format) is important to see output from 'git branch' or 'git tag' in chronological order (and to not mess up with: when did I start that?).
 * I work on the new branch for a while, filing one or more commits
 * From time to time, I pull the main branch and align the feature branch with the code in main (in a way similar to 'How to align with your main branch' above).
-* From time to time, I push my feature branch, mainly to let others check what I'm doing. It's not strictly necessary to push versions that work, but can be useful (especially if the continuous integration system tries to build all branches)
-* When I'm ready to align to main (ie, I did updates and alignment, everything works in the branch), I merge from the feature branch to main, using 'hard theirs' mode (see below). Eventually, I push everything upstream.
+* From time to time, I push my feature branch, mainly to let others check what I'm doing. It's not strictly necessary to push versions that work on a dev branch, but that might be useful (especially if the continuous integration system tries to build all branches).
+* When I'm ready to align to 'main' (ie, I did updates and alignment with 'main' in my branch, everything works in my branch), I merge from the feature branch to 'main', using 'hard theirs' mode (see below). Eventually, I push everything upstream.
   * Beware of the impact that your new feature has on CI-deployed systems, eg, has the config format changed?
-* After a while, when the feature is embedded in the code, I 'close' the branch (see below), leaving a tag for possible reopening.
+* After a while, when the feature is embedded in the code, I 'close' the branch (see below), leaving an archive tag for possibly reopening the branch.
 
 See also: [merging and rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
@@ -80,13 +83,14 @@ Then create it on github and it will tell you how to link the two (git remote).
 git push -u origin branch
 ```
 
-Name the branch you want to send up, else it will take master, even if you’re on a different branch.
+Name the branch you want to send up, else it will take 'master' or 'main', even if you’re on a different branch.
 
 [Reference](http://www.mariopareja.com/blog/archive/2010/01/11/how-to-push-a-new-local-branch-to-a-remote.aspx)
 
 See also:
   * [how to setup an upstream branch](https://devconnected.com/how-to-set-upstream-branch-on-git/)
   * [upstream tracking](https://mincong.io/2018/05/02/git-upstream-tracking/)
+
 
 ## Updating from upstream (aka pull from upstream)
 
