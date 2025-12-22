@@ -8,29 +8,70 @@
 
 set -e # at the first error, you might want to disable, but it's dangerous 
 
-if [[ -z "$1" ]] || [[ "$1" == "--help" ]] || [[ "$1" == "-h" ]]; then
-	echo -e "\n\n\t" $(basename $0) '[--tag|-t] <branch|tag> [<archive-prefix>]' "\n"
-	exit 1
-fi
-
 is_tag=false
-if [[ "$1" == '--tag' ]] || [[ "$1" == '-t' ]]; then
-  is_tag=true
-  shift
-fi
+is_local_only=false
+archive_prefix=archive
+
+# Parse the CLI options
+# 
+while [[ $# -gt 0 ]]
+do
+	opt_name="$1"
+  case $opt_name in
+  	# WARNING: these '--:' special markers are used by --help to generate explanations about the available
+  	# options.
+
+  	#--: The label parameter refers to a tag, rather than a branch.
+  	--tag)
+  		is_tag=true; shift 1;;
+  	#--: Doesn't push the archive tag upstream, keeps it in the local clone only.
+  	--local)
+  		is_local_only=true; shift 1;;
+		#--: The prefix to use for the archive tag (default: 'archive').
+		--archive-prefix)
+			archive_prefix="$2"; shift 2;;
+  	#--: yields this help output and then exits with 1
+  	--help|-h)
+  		echo -e "\n"
+  		# Report the options
+  		cat <<EOT
+
+
+==== Branch/Tag Archiver ====
+ 
+Usage: $0 [options] <branch|tag> [archive_prefix]
+
+	<branch|tag>      The branch or tag to archive
+	[archive_prefix]  (optional) The prefix to use for the archive tag (default: 'archive')
+
+=== Options:
+	
+EOT
+
+			egrep -i '(#\-\-:|\-\-[a-z,0-9,-,_].+\))' "$0" | sed s/'^\s*#\-\-:/#/g' | sed -E s/'^\s+(\-\-.+)\)'/'\1\n'/g
+  		exit 2;;
+  	--*)
+			echo -e "\n\n\tERROR: Invalid option '$1', try --help\n"
+  		exit 1;;
+  	*)
+  		shift;;
+	esac
+done
+
 
 label="$1"
-archive_prefix=${2:-archive}
+
+git_cmd="git"
+# git_cmd="echo git" # Debug
 
 echo "Making the archive tag '$archive_prefix/$label'"
-git tag "$archive_prefix/$label" "$label"
+$git_cmd tag "$archive_prefix/$label" "$label"
 
 `$is_tag` && target=tag || target=branch
 echo "Deleting $target '$label'"
-git $target --delete "$label"
+$git_cmd $target --delete "$label"
  
 echo -e "Propagating everything upstream"
-git push origin --delete "$label"
-git push --tags 
-
+$git_cmd push origin --delete "$label"
+`$is_local_only` || $git_cmd push --tags
 echo -e "That's all!"
