@@ -64,6 +64,7 @@ label="$1"
 git_cmd="git"
 # git_cmd="echo git" # Debug
 
+
 echo "Making the archive tag '$archive_prefix/$label'"
 $git_cmd tag "$archive_prefix/$label" "$label"
 
