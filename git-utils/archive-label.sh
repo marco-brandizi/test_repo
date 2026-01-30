@@ -14,7 +14,7 @@ archive_prefix=archive
 
 # Parse the CLI options
 # 
-while [[ $# -gt 0 ]]
+while [[ $# -gt 1 ]]
 do
 	opt_name="$1"
   case $opt_name in
@@ -23,10 +23,10 @@ do
 
   	#--: The label parameter refers to a tag, rather than a branch.
   	--tag)
-  		is_tag=true; shift 1;;
+  		is_tag=true; shift ;;
   	#--: Doesn't push the archive tag upstream, keeps it in the local clone only.
   	--local)
-  		is_local_only=true; shift 1;;
+  		is_local_only=true; shift ;;
 		#--: The prefix to use for the archive tag (default: 'archive').
 		--archive-prefix)
 			archive_prefix="$2"; shift 2;;
@@ -39,10 +39,9 @@ do
 
 ==== Branch/Tag Archiver ====
  
-Usage: $0 [options] <branch|tag> [archive_prefix]
+Usage: $0 [options] <branch|tag>
 
 	<branch|tag>      The branch or tag to archive
-	[archive_prefix]  (optional) The prefix to use for the archive tag (default: 'archive')
 
 === Options:
 	
@@ -64,11 +63,11 @@ label="$1"
 git_cmd="git"
 # git_cmd="echo git" # Debug
 
+`$is_tag` && target=tag || target=branch
 
 echo "Making the archive tag '$archive_prefix/$label'"
-$git_cmd tag "$archive_prefix/$label" "$label"
+$git_cmd tag -m "chore: add archive tag to $target '$label'" "$archive_prefix/$label" "$label"
 
-`$is_tag` && target=tag || target=branch
 echo "Deleting $target '$label'"
 $git_cmd $target --delete "$label"
  
