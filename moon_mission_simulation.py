@@ -181,7 +181,7 @@ def simulate_seq_size_range ( max_total_seq_len, total_trials = 1000, p_d = 0.2 
   print ( 
     f"""Simulation starting, with parameters:
     - Number of missions per trial (ie, sequence length): 2-{max_total_seq_len}
-    - Total generated mission sequences for each sequence length: {total_trials}
+    - Total generated mission sequences for each sequence length: {total_trials:,}
     - Theoretical probability of death at each mission: {p_d}
 
     """
