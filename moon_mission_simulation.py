@@ -48,8 +48,8 @@ missions, took valid sequences only (ie, those that were successful in all the p
 the usual likelihood of death. Finally, we aggregated the results for all the valid sequences we 
 found this way. In other words, we applied the Monte Carlo method.
 
-If you know what we're talking about, you will also note that stressing CPUs like that is not 
-necessary at all, for we just need to generate a lot single missions and count the failed ones, 
+If you know what we're talking about, you will also note that stressing CPUs like that wouldn't be
+necessary at all, for we'd just need to generate a lot single missions and count the failed ones, and 
 of course, we know the event independence would lead to the same results. However, I suspect that
 if the morons could be convinced so easily, I wouldn't need any of this code, so here you are.
 
@@ -156,8 +156,8 @@ def simulate_all(total_trials=1000, seq_len=6, p_d=0.2):
             [(chunk, seq_len, p_d)] * n_proc
         )
 
-    total_valid = sum(v for v, d in results)
-    total_deaths = sum(d for v, d in results)
+    total_valid = sum(v for (v, d) in results)
+    total_deaths = sum(d for (v, d) in results)
 
     # As mentioned above, total_valid is increasingly low as seq_len grows, and results 
     # are non significant when we don't have enough simulated data points
@@ -187,13 +187,14 @@ def simulate_seq_size_range ( max_total_seq_len, total_trials = 1000, p_d = 0.2 
     """
   )
 
-  seq_lengths = list(range(2, max_total_seq_len + 1))
+  seq_lengths = []
   death_freqs = []
     
-  for seq_len in seq_lengths:
+  for seq_len in range(2, max_total_seq_len + 1):
     deaths = simulate_all ( total_trials=total_trials, seq_len=seq_len, p_d=p_d )
     result_str = ""  
     if deaths >= 0:
+      seq_lengths.append(seq_len)
       death_freqs.append(deaths)
       result_str = f"{deaths:.5f}"
     else:
