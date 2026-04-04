@@ -4,7 +4,7 @@ from multiprocessing import Pool, cpu_count
 """
 # The Gambler Fallacy Simulator 
 
-I wrote this code in response to a moron claiming the Gambler Fallacy over the moon missions.
+I wrote this code in response to a conspiracy genius claiming the Gambler Fallacy over the moon missions.
 
 One version of this ridiculous argument (https://share.google/aimode/z5zvOGaO3obXcbmFr) goes
 like this:
@@ -26,16 +26,16 @@ won't influence future events. They all influence the posterior distribution of 
 frequencies of the outcomes, which converge to the theoretical probabilities as the number 
 of trials increases, and not vice versa.
 
-This confusion is known as the Gambler Fallacy, and here we explore it, while ignoring what
+This confusion is known as the Gambler's Fallacy, and here we explore it, while ignoring what
 follows.
 
-We ignore the fact that the assumption that the event independence, that is, the independence 
+We ignore the fact that the assumption of event independence, that is, the independence 
 of the NASA missions from each other, is grossly unrealistic. In fact, it's very likely that the
 risks actually decreased as thousands of engineers and other experts learned from the previous 
 missions.
 
 We have also tried to simulate the said scenario with high death probabilities, but it's very 
-hard to generate enough valid sequences of missions in this case, so we left the hereby code
+hard to generate enough valid sequences of missions in this case, so we left the code here
 with a P(death in last mission) = 0.4.
 
 This figure is still much higher than the actual estimated probability of death in the 
@@ -43,14 +43,14 @@ real case, which was 1% (see the link to my chat with Gemini above, it has links
 sources).
 
 As an additional note, we simulated the scenario in detail, that is, we generated sequences of 
-missions, took valid sequences only (ie, those that were successful in all the previous missions
-, as the scenario prescribes) and then, for each valid sequence, we generated a last mission with
+missions, took valid sequences only (ie, those that were successful in all the previous missions,
+as the scenario prescribes) and then, for each valid sequence, we generated a last mission with
 the usual likelihood of death. Finally, we aggregated the results for all the valid sequences we 
 found this way. In other words, we applied the Monte Carlo method.
 
 If you know what we're talking about, you will also note that stressing CPUs like that wouldn't be
-necessary at all, for we'd just need to generate a lot single missions and count the failed ones, and 
-of course, we know the event independence would lead to the same results. However, I suspect that
+necessary at all, for we'd just need to generate a lot of single missions and count the failed ones, 
+and of course, we know the event independence would lead to the same results. However, I suspect that
 if the morons could be convinced so easily, I wouldn't need any of this code, so here you are.
 
 ## Results
@@ -135,13 +135,13 @@ def simulate_all(total_trials=1000, seq_len=6, p_d=0.2):
 
     Returns
 
-    The relative frequency of deaths occurred in the last mission, for
-    all the valid missions (ie, those that were successful before the 
-    last one).
+    The relative frequency of deaths that occurred in the last mission, for
+    all the valid sequences (ie, those that had only successful missions
+    before the last one).
 
-    Non-valid missions are discarded, since they have nothing to do with 
+    Non-valid sequences are discarded, since they have nothing to do with 
     the scenario we are simulating, they're only generated because there
-    is no other way to find valid mission to aggregate figures from.
+    is no other way to find valid sequences to aggregate figures from.
 
     A result is returned only if we have enough valid sequences, which we 
     set to the reasonable value of at least 10000.
@@ -160,7 +160,7 @@ def simulate_all(total_trials=1000, seq_len=6, p_d=0.2):
     total_deaths = sum(d for (v, d) in results)
 
     # As mentioned above, total_valid is increasingly low as seq_len grows, and results 
-    # are non significant when we don't have enough simulated data points
+    # are non-significant when we don't have enough simulated data points
     if total_valid <= min ( 10000, total_trials / 10 ): return -1.0
     return total_deaths / total_valid 
 
