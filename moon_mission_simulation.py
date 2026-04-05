@@ -4,7 +4,7 @@ from multiprocessing import Pool, cpu_count
 """
 # The Gambler Fallacy Simulator 
 
-I wrote this code in response to a conspiracy genius claiming the Gambler Fallacy over the moon missions.
+I wrote this code in response to a conspiracy genius claiming the Gambler's Fallacy over the moon missions.
 
 One version of this ridiculous argument (https://share.google/aimode/z5zvOGaO3obXcbmFr) goes
 like this:
