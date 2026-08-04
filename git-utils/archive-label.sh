@@ -14,10 +14,10 @@ archive_prefix=archive
 
 # Parse the CLI options
 # 
-while [[ $# -gt 1 ]]
+while [[ $# -gt 0 ]]
 do
 	opt_name="$1"
-  case $opt_name in
+  case "$opt_name" in
   	# WARNING: these '--:' special markers are used by --help to generate explanations about the available
   	# options.
 
@@ -53,12 +53,12 @@ EOT
 			echo -e "\n\n\tERROR: Invalid option '$1', try --help\n"
   		exit 1;;
   	*)
-  		shift;;
+  		label="$1"
+  		break;;
 	esac
 done
 
-
-label="$1"
+#label="$1"
 
 git_cmd="git"
 # git_cmd="echo git" # Debug
